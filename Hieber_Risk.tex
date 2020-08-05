@@ -1,0 +1,396 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[nohead, nomarginpar, margin=1in, foot=.25in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm}
+\usepackage{relsize}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=0.2pt] (char) {#1};}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}{Proposition}[theorem]
+
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\title{Non-parametric Estimation via Neural Network}
+\author{Suh, Ko, Huo}
+\begin{document}
+
+\maketitle
+
+\section{Preliminary notations}
+    In this document, we consider a non-parametric regression model, $Y_{i}=f_{0}(X_{i})+\varepsilon_{i}$, where $\varepsilon_{i}\sim \mathcal{N}(0,\sigma^{2})$.
+    \noindent We are interested in finding the bound of prediction risk
+    \begin{eqnarray}\nonumber
+        R(\widehat{f}_{n},f_{0}):= E_{f_0}\left[\left(\widehat{f}_{n}(X)-f_{0}(X)\right)^{2}\right],
+    \end{eqnarray}
+    with $X\buildrel{D}\over=X_{1}$ being independent of sample $(X_{i},Y_{i})$.
+    Let $\widehat{f}_{n}$ denote any local or global minimizer of empirical risk $\frac{1}{n}\sum_{i=1}^{n}\big(Y_{i}-f(X_{i})\big)^{2}$ over the neural network class $\mathcal{F}(L,p,s,F)$.
+    Note also that the subscript $f_0$ in $E_{f_0}$ indicates that the expectation is taken with respect to a sample generated from $f_0$. 
+    The sequence $\Delta_{n}(\widehat{f}_{n},f_{0})$ measures the difference between the expected empirical risk of $\widehat{f}_{n}$ and the global minimum over all networks in the class $\mathcal{F}(L,p,s,F)$, which is defined as follows:
+    \begin{eqnarray}\nonumber
+        \Delta_{n}(\widehat{f}_{n},f_0):=E_{f_{0}}\left[\frac{1}{n}\sum_{i=1}^{n}\big(Y_i-\widehat{f}_{n}(X_i)\big)^{2}-\inf_{f\in \mathcal{F}(L,p,s,F)}\frac{1}{n}\sum_{i=1}^{n}\big(Y_{i}-f(X_i)\big)^{2}\right].
+    \end{eqnarray}
+    Note that $\Delta_{n}(\widehat{f}_{n},f_0) \geq 0$ and $\Delta_{n}(\widehat{f}_{n},f_0)=0$ if $\widehat{f}_{n}$ is an empirical minimizer.
+    The goal of this document is to obtain both lower and upper bounds of the prediction risk in terms of $\Delta_{n}(\widehat{f}_{n},f_{0})$.
+
+\section{Risk Bound w.r.t. $\Delta_{n}$?}
+In this Section, we provide the Theorem on upper and lower bound of prediction risk $R(\widehat{f}_{n},f_{0})$. 
+
+\begin{tcolorbox}
+\textbf{Theorem 2. (Hieber, 20.)}
+Consider the d-variate non-parametric regression model with unknown regression function $f_{0}$ satisfying $\|f_{0}\|_{\infty} \leq F$ for some $F\geq 1$. Let $\widehat{f}_{n}$ be any estimator taking values in the class $\mathcal{F}(L,p,s,F)$ and let $\Delta_{n}(\widehat{f}_{n},f_{0})$ be the quantity defined above.
+For any $\varepsilon \in (0,1]$, there exists a constant $C_{\varepsilon}$, only depending on $\varepsilon$, such that with 
+\begin{equation*}
+    \tau_{\varepsilon,n}:=C_{\varepsilon}F^{2}\frac{(s+1)\log(n(s+1)^{L})p_{0}p_{L+1}}{n}, 
+\end{equation*}
+
+\begin{align*}
+    (1-\varepsilon)^{2}\Delta_{n}(\widehat{f}_{n},f_{0})- &\tau_{\varepsilon,n} \leq 
+    R(\widehat{f},f_{0})  
+    \\
+    &\leq (1+\varepsilon)^{2}\bigg( \inf_{f \in \mathcal{F}(L,p,s,F)  }E_{f_{0}}[\|f-f_{0}\|_{n}^{2}] + \Delta_{n}(\widehat{f}_{n},f_{0})\bigg) + \tau_{\varepsilon,n}.
+\end{align*} 
+\end{tcolorbox}
+
+\newpage
+\centerline{\textbf{Proof of the Theorem $2$. is involved with following two Lemmas 
+: Lemma $4$ and Lemma $5$.}} 
+
+\begin{tcolorbox}
+\textbf{Lemma 4. (Hieber, 20.)}
+Consider the d-variate non-parametric regression model with unknown regression function $f_{0}$ satisfying $\|f_{0}\|_{\infty} \leq F$ for some $F\geq 1$. 
+Let $\widehat{f_{n}}$ be any estimator taking values in the class $\mathcal{F}(L,p,s,F)$ and let $\Delta_{n}(\widehat{f}_{n},f_{0})$ be the quantity defined above.
+Assume $\{f_{0}\} \cup \mathcal{F} \subset \{f : [0,1]^{d}\rightarrow{[-F,F]}\}$ for some $F\geq 1$.
+If $\mathcal{N}_{n}:=\mathcal{N}(\delta,\mathcal{F},\|\cdot\|_{\infty})\geq 3$, then, 
+\begin{align*}
+    (1-\varepsilon)^{2}\Delta_{n}-F^{2}\frac{18\log\mathcal{N}_{n}+76}{n\varepsilon} - & 38\delta \leq R(\widehat{f},f_{0}) \\
+    &\leq (1+\varepsilon)^{2}\left[ \inf_{f \in \mathcal{F} }E_{f_{0}}[\|f-f_{0}\|_{n}^{2}] + F^{2}\frac{ 18\log\mathcal{N}_{n}+72 }{n\varepsilon}+32\delta F + \Delta_{n} \right]
+\end{align*}
+for all $\delta,\varepsilon \in (0,1]$.
+\end{tcolorbox}
+
+\noindent\textbf{Proof sketch of Lemma $4$.}
+Proof of Lemma $4$ can be divided into several substeps. 
+Here, we present key ideas for each substep, and all detailed proof procedures are deferred in next Section.
+
+\begin{enumerate}
+    \item First key idea for the proof of Lemma $4$ is to construct an empirical counterpart of prediction risk, where we denote it as $\widehat{R}_{n}(\widehat{f}_{n},f_{0}):=E_{X}[\frac{1}{n}\sum_{j=1}^{n} \big( \widehat{f}_{n}(X_{i})-f_{0}(X_{i}) \big)^{2} ]$, and relate it with the risk $R_n(\widehat{f}_{n},f_{0})$ via certain inequality. 
+    Note that since $\widehat{f}_{n}$ is a stochastic term, $R(\widehat{f}_{n},f_{0})\neq \widehat{R}_{n}(\widehat{f}_{n},f_{0})$.
+    Generate i.i.d. random variables $X^{'}_{1},\dots,X^{'}_{n}$ with the same distribution as $X$ and independent of $(X_{i})_{i=1,\dots,n}$.
+    Then, we can obtain a following inequality :
+    \begin{align*}
+    \left| R(\widehat{f}_{n},f_{0}) - \widehat{R}_{n}(\widehat{f}_{n},f_{0}) \right|
+    &=\left| E \bigg[ \frac{1}{n} \sum_{i=1}^{n} \bigg\{ \big( \widehat{f}(X^{'}_{i}) - f_{0}(X^{'}_{i}) \big)^{2} - \big( \widehat{f}(X_{i}) - f_{0}(X_{i} \big)^{2} \bigg\} \bigg] \right| \\
+    &\leq \frac{F}{n}R(\widehat{f},f_{0})^{1/2}\big( 36n\log\mathcal{N}_{n}+2^{8}n \big) + \frac{F}{n}\big( 6\log\mathcal{N}_{n} + 11 \big) + 26\delta F.
+    \end{align*}
+    Bernstein's inequality and concept of $\delta$-covering number are used for derivation.
+    
+    \item Second key idea is to obtain both the lower and upper bound of risk  $R(\widehat{f}_{n},f_{0})$ in terms of $\widehat{R}_{n}(\widehat{f}_{n},f_{0})$ by using a following inequality :
+    Let $a,b,c,d$ be positive real numbers, such that $|a-b|\leq 2\sqrt{a}c+d$. It can be easily shown for any $\varepsilon\in(0,1]$,
+    \begin{eqnarray*}
+        (1-\varepsilon)b-d-\frac{c^2}{\varepsilon}
+        \leq a \leq (1+\varepsilon)(b+d)+\frac{(1+\varepsilon)^{2}}{\varepsilon}c^2.
+    \end{eqnarray*}
+
+    In our case, we set $a=R(\widehat{f},f_{0})$, $b=\widehat{R}_{n}(\widehat{f},f_{0})$, $c=F(9n\log\mathcal{N}_{n}+64n)^{1/2}/n$, and $d=F(6\log\mathcal{N}_{n}+11)/n+26\delta F$.
+    
+    \item Lastly, a remaining task for obtaining the bounds in Lemma 4. is to get the upper and lower bound of empirical version of prediction risk, $\widehat{R}_{n}(\widehat{f}_{n},f_{0})$, with respect to $\Delta_{n}$. Here, we use the definition of $\Delta_{n}$.
+    For any fixed $f\in\mathcal{F}$,
+    \begin{eqnarray*}
+        E_{f_{0}}\left[ \frac{1}{n} \sum_{j=1}^{n} \big( \widehat{f}(X_{i}) - f_{0}(X_{i}) \big)^{2} \right] 
+        \leq E_{f_{0}}\left[ \frac{1}{n} \sum_{j=1}^{n} \bigg( f_{0}(X_{i}) - f(X_{i}) \bigg)^{2} \right] + \Delta_{n} + \frac{2}{n} E_{f_{0}}\left[\sum_{i=1}^{n}\varepsilon_{i} \widehat{f}(X_{i})\right].
+    \end{eqnarray*}
+\end{enumerate}
+
+Observe that $\delta$-entropy of class $\mathcal{F}$ (i.e., $\log\mathcal{N}_{n}$) appears both at the upper and lower bound of the risk $R(\widehat{f},f_{0})$ in Lemma $4$.
+In order to derive the bounds in Theorem $2$, an upper bound on the covering number, $\mathcal{N}_{n}$, should be obtained. \\
+
+\begin{tcolorbox}
+\textbf{Lemma 5. (Hieber, 20.)}
+If $V:=\prod_{\ell=0}^{L+1}(p_{\ell}+1)$, then for any $\delta>0$,
+\begin{equation*}
+    \log\mathcal{N}\bigg(\delta,\mathcal{F}(L,p,s,\infty),\|\cdot\|_{\infty}\bigg)
+    \leq (s+1)\log\bigg(2\delta^{-1}(L+1)V^{2}\bigg).
+\end{equation*}
+\end{tcolorbox}
+
+\noindent\textbf{Proof sketch of Lemma $5$.} 
+The key idea for the proof of Lemma $5$ is to discretize the parameter space $(\textbf{v}_{k},\textbf{W}_{k})_{k}$ of neural network $f$ with certain grid size $\varepsilon$. 
+Let $(\textbf{v}_{k}^{*},\textbf{W}_{k}^{*})_{k}$ be the network parameter on the constructed grid and $f^*$ be the network value evaluated at the grid point,  $(\textbf{v}_{k}^{*},\textbf{W}_{k}^{*})_{k}$.
+Fix $\varepsilon>0$.
+Let $f,f^*\in\mathcal{F}$ be two networks, such that all parameters are $\varepsilon$ away from each other.
+Then, the proof of Lemma $5$ can be divided into following four steps :
+\begin{enumerate}
+    \item Calculate the upper-bound of $|f(X)-f^*(X)|$ in terms of $\varepsilon,V$ and $L$. Actually, we can get the bound $|f(X)-f^*(X)|\leq \varepsilon V(L+1)$. By setting $\varepsilon=\frac{\delta}{2V(L+1)}$, for any $\delta>0$, we can get $|f(X)-f^*(X)|\leq \frac{\delta}{2}<\delta$. 
+    
+    \item Note that the total number of parameters in the network can be bounded by $V$ as follows:
+    \begin{equation*}
+        \sum_{j=0}^{L}p_{\ell}p_{\ell+1}+\sum_{j=1}^{L}p_{\ell}
+        = \sum_{j=0}^{L}(p_{\ell}+1)p_{\ell+1}-p_{L+1}
+        \leq \prod_{\ell=0}^{L+1}(p_{\ell}+1) := V.
+    \end{equation*}
+    
+    \item Since the absolute value of parameters in the network are bounded by $1$, it is obvious that the total number of grid points in parameter space $(\textbf{v}_{k},\textbf{W}_{k})_{k}$ is bounded by $\frac{2V^{2}(L+1)}{\delta}$.
+    
+    \item Since $\mathcal{F}(L,p,s,F)$ is a class of neural network functions with at most $s$ parameters, we can obtain a bound for the covering number of class $\mathcal{F}$ as follows,
+    \begin{equation*}
+        \mathcal{N}\bigg(\delta,\mathcal{F}(L,p,s,\infty),\|\cdot\|_{\infty}\bigg)
+        \leq \sum_{s^*\leq s}\bigg(\frac{2V^{2}(L+1)}{\delta}\bigg)^{s^*}
+        \leq \bigg(\frac{2V^{2}(L+1)}{\delta}\bigg)^{s+1}.
+    \end{equation*}
+\end{enumerate}
+
+\noindent
+All we need to do is to derive the bound of $|f(X)-f(X^*)|\leq \varepsilon V(L+1)$ for which we defer the proof in Section $4$.
+
+\section{Proof of Lemma $4$.}
+\subsection{Step 0.}
+First, we divide the cases into two:1) when $\log\mathcal{N}_{n}\geq n$ and 2) when $\log\mathcal{N}_{n}\leq n$.
+In this step, when $\log\mathcal{N}_{n}\geq n$ holds, we will show that the upper and lower bounds in Lemma $4$. hold trivially.
+For the upper bound, note that the risk $R(\widehat{f},f_{0})$ is bounded by $4F^{2}$.
+The assumptions $\log\mathcal{N}_{n}\geq n$ and $\varepsilon\in(0,1]$ make the claimed upper bound in Lemma $4$. already greater than $18F^{2}$.
+For the lower bound, first observe that $R(\widehat{f},f_{0})\geq 0$, 
+then it is enough to show that when $\log\mathcal{N}_{n}\geq n$, the claimed lower bound in Lemma $4$ is less than or equal to $0$.
+It is easy to see that the following is true, for any fixed empirical risk minimizer, $\Tilde{f}$, we have : 
+\begin{align*}
+    \widehat{R}_{n}(\widehat{f}_{n},f_{0})-\widehat{R}_{n}(\Tilde{f}_{n},f_{0})
+    &=E_{f_0} \bigg[\frac{1}{n}\sum_{i=1}^{n}\big( \widehat{f}(X_{i})-f_{0}(X_{i}) \big)^{2} - \big( \Tilde{f}(X_{i})-f_{0}(X_{i}) \big)^{2} \bigg]\\
+    &=E_{f_0} \bigg[\frac{1}{n}\sum_{i=1}^{n}\big( \widehat{f}(X_{i})-Y_{i}+\varepsilon_{i} \big)^{2} - \big( \Tilde{f}(X_{i})-Y_{i}+\varepsilon_{i} \big)^{2} \bigg]\\
+    &=\Delta_{n} + E_{f_{0}}\left[ \frac{2}{n} \sum_{i=1}^{n} \varepsilon_{i} \widehat{f}(X_{i}) \right] - E_{f_{0}}\left[ \frac{2}{n} \sum_{i=1}^{n} \varepsilon_{i} \Tilde{f}(X_{i}) \right].
+\end{align*}
+From this equation, we can see that $\Delta_{n}$ is bounded by $8F^{2}$, since $F\geq 1$.
+The lower bound of Lemma $4$ is bounded by $(1-\varepsilon)^{2}\Delta_{n}-18F^{2}\leq-10F^{2}\leq 0$.
+So the lower bound holds trivially.
+
+\subsection{Step 1.}
+From this step, we assume $\log\mathcal{N}_{n}\leq n$.
+Recall that the definition of $\delta$-covering number $\mathcal{N}\big(\delta,\mathcal{F}(L,p,s,F),\|\cdot\|_{\infty}\big)$ is the minimal number of $\|\cdot\|_{\infty}$-balls with radius $\delta$ that covers $\mathcal{F}(L,p,s,F)$.
+By construction there exists a (random) $j^*$ such that $\|\widehat{f}-f_{j^*}\|_{\infty}\leq \delta$ for any $\widehat{f}$ achieved by any optimization methods.
+Generate i.i.d. random variables $X^{'}_{1},\dots,X^{'}_{n}$ with the same distribution as $X$ and independent of $(X_{i})_{i=1,\dots,n}$, then we can get a following inequality under the assumptions: $\|f_{j}\|_{\infty},\|f_{0}\|_{\infty},\delta \leq F$.
+
+\begin{eqnarray*}
+    \bigg| R(\widehat{f},f_{0})-R_n(\widehat{f},f_{0}) \bigg| 
+    &=& \Bigg| E_{f_0} \bigg[\frac{1}{n}\sum_{i=1}^{n}\big( \widehat{f}(X_{i}^{'})-f_{0}(X_{i}^{'}) \big)^{2} - \big( \widehat{f}(X_{i})-f_{0}(X_{i}) \big)^{2} \bigg]\Bigg| \\
+    &\leq& E_{f_0} \bigg| \frac{1}{n}\sum_{i=1}^{n}\big( 
+    \underbrace{f_{j^*}(X_{i}^{'})-f_{0}(X_{i}^{'}) \big)^{2} - \big( f_{j^*}(X_{i})-f_{0}(X_{i}) \big)^{2}}_{:=g_{j^*}(X_i,X_i^{'})} \bigg| + 9\delta F \\
+    &=& E_{f_0} \left[ \bigg| \frac{1}{n}\sum_{i=1}^{n} \frac{g_{j^*}(X_i,X_i^{'})}{r_{j^*}F} \big( r_{j^*}F \big) \bigg| \right] + 9\delta F \\
+    &\leq& \frac{F}{n} E_{f_0} \left[\bigg| \max_{j} \sum_{i=1}^{n} \bigg( \frac{g_{j}(X_i,X_i^{'})}{r_{j}F} \bigg) \bigg| r_{j^*} \right]  + 9\delta F
+\end{eqnarray*}
+
+For second inequality, we use a following relation : 
+\begin{align*}
+    &\big(\widehat{f}(X_{i}^{'})-f_{0}(X_{i}^{'}) \big)^{2} - \big( \widehat{f}(X_{i})-f_{0}(X_{i}) \big)^{2} \\
+    &= \big(\widehat{f}(X_{i}^{'})-f_{j^*}(X_{i}^{'}) +f_{j^*}(X_{i}^{'}) - f_{0}(X_{i}^{'}) \big)^{2} - \big( \widehat{f}(X_{i})-f_{j^*}(X_{i}) +f_{j^*}(X_{i})-f_{0}(X_{i}) \big)^{2} \\
+    &= \big(f_{j^*}(X_{i}^{'}) - f_{0}(X_{i}^{'})\big)^{2} - \big(f_{j^*}(X_{i}) - f_{0}(X_{i})\big)^{2} + \underbrace{\big(\widehat{f}(X_{i}^{'})-f_{j^*}(X_{i}^{'})\big)^{2}}_{\leq \delta^{2} \leq \delta F}
+    -\underbrace{\big(\widehat{f}(X_{i})-f_{j^*}(X_{i})\big)^{2}}_{\geq 0} \\
+    & \quad -2\underbrace{\big(\widehat{f}(X_{i}^{'})-f_{j^*}(X_{i}^{'})\big)}_{\leq \delta}\underbrace{\big(f_{j^*}(X_{i}^{'}) - f_{0}(X_{i}^{'})\big)}_{\geq -2F} -2\underbrace{\big(\widehat{f}(X_{i})-f_{j^*}(X_{i})\big)}_{\leq\delta}\underbrace{\big(f_{j^*}(X_{i}) - f_{0}(X_{i})\big)}_{\geq -2F}\\
+    &\leq \big(f_{j^*}(X_{i}^{'}) - f_{0}(X_{i}^{'})\big)^{2} - \big(f_{j^*}(X_{i}) - f_{0}(X_{i})\big)^{2} + 9\delta F.
+\end{align*}
+
+Now we set $r_{j^*}:=\sqrt{n^{-1}\log{\mathcal{N}_n}} \vee E^{1/2} \big[ ( f_{j^*}(X)-f_0(X) )^{2} | (X_{i},Y_{i})_{i}\big]$. Note that we have a following bound for $r_{j^*}$ by using the notion of $\delta$-covering number once again:
+\begin{eqnarray*}
+    r_{j^*} \leq \sqrt{\frac{\log{\mathcal{N}_n}}{n}} + E^{1/2} \bigg[ ( \widehat{f}(X)-f_0(X) )^{2} \big| (X_{i},Y_{i})_{i} \bigg] + \delta
+\end{eqnarray*}
+Denoting $T:=\big| \max_{j} \sum_{i=1}^{n} g_{j}(X_i,X_i^{'})/{r_{j}F} \big|$ and $U:=E^{1/2} \big[ ( \widehat{f}(X)-f_0(X) )^{2} | (X_{i},Y_{i})_{i} \big]$, and using Cauchy-Schwartz inequality for random variables $U$ and $T$ (i.e., $E[UT]\leq E^{1/2}[U^{2}]E^{1/2}[T^{2}]$), we have:
+\begin{eqnarray} \label{eq:eq1}
+    \bigg| R(\widehat{f},f_{0})-R_n(\widehat{f},f_{0}) \bigg| &\leq& 
+    \frac{F}{n} E_{f_0} \left[ TU + \bigg( \delta + \sqrt{\frac{\log{\mathcal{N}_n}}{n}} \bigg) T\right]  + 9\delta F \nonumber \\
+    &\leq& \frac{F}{n}R(\widehat{f},f_{0})^{1/2}E^{1/2}[T^{2}] + \frac{F}{n}\bigg( \delta + \sqrt{\frac{\log{\mathcal{N}_n}}{n}} \bigg) E[T] + 9\delta F.
+\end{eqnarray}
+
+Now, the first and second moment of $T$ need to be controlled. (i.e.,$E[T]$ and $E[T^{2}]$). 
+First observe that $E g_{j}(X_i,X_i^{'})/r_{j}=0$, $\text{Var}(g_{j}(X_i,X_i^{'})/r_{j})\leq 8F^{2}$ and $|g_{j}(X_i,X_i^{'})/r_{j}|\leq 4F^{2}/r_{j}$.
+We can use Bernstein's inequality which states that for independent and centered random variables $U_{1},\dots,U_{n}$, satisfying $|U_{i}|\leq M$, $P(|\sum_{i=1}^{n}U_{i}|\geq t)\leq 2\exp(-t^{2}/[2Mt/3+2\sum_{i=1}^{n}Var(U_{i})])$.
+\begin{eqnarray*}
+    P(T\geq t) = 
+    P\bigg( \bigg| \max_{j} \sum_{i=1}^{n} \bigg( \frac{g_{j}(X_i,X_i^{'})}{r_{j}F} \bigg) \bigg| \geq t \bigg)
+    &\leq& P\bigg( \max_{j} \bigg| \sum_{i=1}^{n} \bigg( \frac{g_{j}(X_i,X_i^{'})}{r_{j}} \bigg) \bigg| \geq Ft \bigg)\\
+    &\leq& \mathcal{N}_n \max_{j} P\bigg( \bigg| \sum_{i=1}^{n} \bigg( \frac{g_{j}(X_i,X_i^{'})}{r_{j}} \bigg) \bigg| \geq Ft \bigg) \\
+    &\leq& 2\mathcal{N}_n \max_{j} \exp\bigg( -\frac{(Ft)^{2}}{2\cdot 4F^{2}t/(3r_j)+2\cdot8F^{2}n } \bigg) \\ 
+    &=& 2\mathcal{N}_n \max_{j} \exp\bigg( -\frac{t^{2}}{8t/(3r_j)+16n } \bigg) \wedge 1 
+\end{eqnarray*}
+The first term in the denominator dominates for large enough $t$: Specifically, for $t\geq 6\sqrt{n\log\mathcal{N}_{n}}$, we have
+\begin{eqnarray*}
+    \exp\bigg( -\frac{t^{2}}{8t/(3r_j)+16n} \bigg) \leq \exp\bigg( -\frac{t}{16/(3r_j)} \bigg) \leq \exp\bigg( -\frac{3t\sqrt{\log\mathcal{N}_{n}}}{16\sqrt{n}} \bigg),
+\end{eqnarray*}
+where we use the inequality $r_j\geq \sqrt{n^{-1}\log\mathcal{N}_{n}}$ in the last inequality. We therefore find following inequality for the two moments of $T$:
+\begin{eqnarray*}
+    E[T] = \int_{0}^{\infty}P(T \geq t) dt 
+    &\leq& 6\sqrt{n\log\mathcal{N}_{n}} + \int_{6\sqrt{n\log\mathcal{N}_{n}}}^{\infty}2\mathcal{N}_n \exp\bigg( -\frac{3t\sqrt{\log\mathcal{N}_{n}}}{16\sqrt{n}} \bigg) dt\\
+    &\leq& 6\sqrt{n\log\mathcal{N}_{n}} + \frac{32}{3}\sqrt{\frac{n}{\log\mathcal{N}_{n}}}.
+\end{eqnarray*}
+Here, in second inequality, for $3\leq \mathcal{N}_{n}$, we use : 
+\begin{eqnarray*}
+    2\mathcal{N}_n \int_{6\sqrt{n\log\mathcal{N}_{n}}}^{\infty}\exp\bigg( -\frac{3t\sqrt{\log\mathcal{N}_{n}}}{16\sqrt{n}} \bigg) dt
+    =\bigg(\mathcal{N}_n^{-\frac{7}{2}}\bigg)\frac{32}{3}\sqrt{\frac{n}{\log\mathcal{N}_{n}}}
+    \leq \frac{32}{3}\sqrt{\frac{n}{\log\mathcal{N}_{n}}}.
+\end{eqnarray*}
+
+Similarly $E[T^{2}]$ can be controlled as follows:
+\begin{eqnarray*}
+    E[T^{2}] = \int_{0}^{\infty}P(T^2 \geq u) du &=& \int_{0}^{\infty}P(T \geq \sqrt{u}) du \\
+    &\leq& 36n\log\mathcal{N}_{n} + \int_{36n\log\mathcal{N}_{n}}^{\infty}2\mathcal{N}_n \exp\bigg( -\frac{3\sqrt{u}\sqrt{\log\mathcal{N}_{n}}}{16\sqrt{n}} \bigg) du\\
+    &\leq& 36n\log\mathcal{N}_{n} + 2^{8}n.
+\end{eqnarray*}
+
+In the third inequality, we use the identity : $\int_{b^{2}}^{\infty}e^{-\sqrt{u}a}du=2(ab+1)e^{-ab}/b^{2}$.
+By setting $a=\frac{3\sqrt{\log\mathcal{N}_{n}}}{16\sqrt{n}}$ and $b=6\sqrt{n\log\mathcal{N}_n}$ and using $3\leq\mathcal{N}_{n}$ once again, we have : 
+\begin{eqnarray*}
+    \int_{36n\log\mathcal{N}_{n}}^{\infty}2\mathcal{N}_n \exp\bigg( -\frac{3\sqrt{u}\sqrt{\log\mathcal{N}_{n}}}{16\sqrt{n}} \bigg) du=
+    \bigg( \frac{1}{2} + \frac{4}{9\log\mathcal{N}_{n}} \bigg)\mathcal{N}_{n}^{-\frac{1}{8}}\cdot2^{8}n\leq 2^{8}n. 
+\end{eqnarray*}
+
+Lastly, plugging the bound of $E[T]$ and $E[T^{2}]$ in \eqref{eq:eq1} and using the relation $1\leq \log\mathcal{N}_{n} \leq n$, we get :
+\begin{eqnarray} \label{eq:eq2}
+    \bigg| R(\widehat{f},f_{0})-R_n(\widehat{f},f_{0}) \bigg|
+    &\leq& \frac{F}{n}R(\widehat{f},f_{0})^{1/2}\big( 36n\log\mathcal{N}_{n}+2^{8}n \big)^{1/2} + \frac{F}{n}\big( 6\log\mathcal{N}_{n} + 11 \big) + 26\delta F.
+\end{eqnarray}
+
+\subsection{Step 2.}
+Let $a,b,c,d$ be positive real numbers, such that $|a-b|\leq 2\sqrt{a}c+d$. It can be easily shown for any $\varepsilon\in(0,1]$,
+\begin{eqnarray} \label{eq:eq3}
+    (1-\varepsilon)b-d-\frac{c^2}{\varepsilon}
+    \leq a \leq (1+\varepsilon)(b+d)+\frac{(1+\varepsilon)^{2}}{\varepsilon}c^2.
+\end{eqnarray}
+
+Upper bound of $\eqref{eq:eq3}$ can be obtained as follows:
+\begin{align*}
+    a-b \leq 2\sqrt{a}c+d &= 2\sqrt{\frac{\varepsilon}{1+\varepsilon}a}\sqrt{\frac{1+\varepsilon}{\varepsilon}}c+d \\
+    &\leq \frac{\varepsilon}{1+\varepsilon}a + \frac{1+\varepsilon}{\varepsilon}c^{2}+d.
+\end{align*}
+
+Lower bound of $\eqref{eq:eq3}$ can be obtained as follows:
+\begin{align*}
+    b-a \leq 2\sqrt{a}c+d &= 2\sqrt{\frac{\varepsilon}{1-\varepsilon}a}\sqrt{\frac{1-\varepsilon}{\varepsilon}}c+d \\
+    &\leq \frac{\varepsilon}{1-\varepsilon}a + \frac{1-\varepsilon}{\varepsilon}c^{2}+d.
+\end{align*}
+Rearranging the terms and using the fact $\varepsilon\in(0,1]$ yield the claim.
+Now, set $a=R(\widehat{f},f_{0})$, $b=\widehat{R}_{n}(\widehat{f},f_{0})$, $c=F(9n\log\mathcal{N}_{n}+64n)^{1/2}/n$, and $d=F(6\log\mathcal{N}_{n}+11)/n+27\delta F$.
+Finally, we relate the risk $R(\widehat{f},f_{0})=E[(\widehat{f}(X)-f_0(X))^{2}]$ to its empirical counterpart $\widehat{R}_{n}(\widehat{f},f_{0})$ via the inequalities,
+\begin{align*}
+    (1-\varepsilon)\widehat{R}_{n}(\widehat{f},f_{0})-\frac{F^{2}}{n\varepsilon}(15\log\mathcal{N}_{n}+75) & -26\delta F 
+    \leq R(\widehat{f},f_{0}) \\
+    &\leq (1+\varepsilon)\bigg(\widehat{R}_{n}(\widehat{f},f_{0}) + (1+\varepsilon)\frac{F^{2}}{n\varepsilon}(12\log\mathcal{N}_{n}+70)+26\delta F\bigg).
+\end{align*}
+Note that we have used $2\leq (1+\varepsilon)/\varepsilon$ for obtaining the upper-bound.
+
+\subsection{Step 3.}
+Given an estimator $\Tilde{f}$ taking values in $\mathcal{F}$, let $j^{'}$ be such that $\|\Tilde{f}-f_{j^{'}}\|_{\infty} \leq\delta$.
+First, using the independence assumption of $\varepsilon_{i}$ and $X_{i}$, it can be easily seen that $E[\varepsilon_{i}f_{0}(X_{i})]=0$ for deterministic $f_{0}$. Secondly, it is also easy to see that $|E[\sum_{i=1}^{n}\varepsilon_{i}(\Tilde{f}(X_{i})-f_{j^{'}}(X_{i}))]|\leq n\delta$ by using the fact $E[|\varepsilon_{i}|]=\sqrt{\frac{2}{\pi}}$. So the bound of ~ can be obtained as follows :
+\begin{eqnarray*}
+    \left| E\left[ \frac{2}{n}\sum_{i=1}^{n} \varepsilon_{i}\Tilde{f}(X_{i}) \right] \right|
+    &=& \left| E\left[ \frac{2}{n}\sum_{i=1}^{n} \varepsilon_{i} \bigg( \Tilde{f}(X_{i}) - f_{0}(X_{i}) \bigg) \right] \right| \\ 
+    &\leq& \left| E\left[ \frac{2}{n}\sum_{i=1}^{n} \varepsilon_{i} \bigg( f_{j^{'}}(X_{i}) - f_{0}(X_{i}) \bigg) \right] \right| + 2\delta \\
+    &=& \frac{2}{\sqrt{n}}\left| E\left[ \frac{\sum_{i=1}^{n}\varepsilon_{i}(f_{j^{'}}(X_{i})-f_{0}(X_{i}))}{\sqrt{n}\|f_{j^{'}}-f_{0}\|_{n}} \|f_{j}-f_{0}\|_{n} \right] \right| + 2\delta \\
+    &\leq& \frac{2}{\sqrt{n}} E\left[ \left|\frac{\sum_{i=1}^{n}\varepsilon_{i}(f_{j^{'}}(X_{i})-f_{0}(X_{i}))}{\sqrt{n}\|f_{j^{'}}-f_{0}\|_{n}} \right|\|f_{j^{'}}-f_{0}\|_{n} \right] + 2\delta \\
+    &\leq& \frac{2}{\sqrt{n}} E\left[ \left|\underbrace{\frac{\sum_{i=1}^{n}\varepsilon_{i}(f_{j^{'}}(X_{i})-f_{0}(X_{i}))}{\sqrt{n}\|f_{j^{'}}-f_{0}\|_{n}}}_{:=\xi_{j^{'}}} \right| \big( \|\Tilde{f}-f_{0}\|_{n} + \delta \big) \right] + 2\delta
+\end{eqnarray*}
+Here, note that random variable $\xi_{j^{'}}$ follows standard normal (i.e., $\xi_{j^{'}}\sim\mathcal{N}(0,1)$).
+Next, we further need to control the term $E\left[|\xi_{j^{'}}|\big(\|\Tilde{f}-f_{0}\|_{n} + \delta\big)\right]$ as follows:
+\begin{align*}
+    E\left[|\xi_{j^{'}}|\big(\|\Tilde{f}-f_{0}\|_{n} + \delta\big)\right] 
+    &= E\left[|\xi_{j^{'}}|\|\Tilde{f}-f_{0}\|_{n}\right] + \delta E[|\xi_{j^{'}}|]\\
+    &\leq E\left[|\xi_{j^{'}}|\|\Tilde{f}-f_{0}\|_{n}\right] + \delta \\
+    &\leq \widehat{R}_{n}^{1/2}(\Tilde{f},f_{0})E^{1/2}[\xi_{j^{'}}^{2}] + \delta \\
+    &\leq \widehat{R}_{n}^{1/2}(\Tilde{f},f_{0})\sqrt{3\log\mathcal{N}_{n}+1} + \delta \\
+    &\leq \bigg(\widehat{R}_{n}^{1/2}(\Tilde{f},f_{0})+\delta\bigg)\sqrt{3\log\mathcal{N}_{n}+1}
+\end{align*}
+
+In first inequality, the fact $E[|\xi_{j^{'}}|]=\sqrt{\frac{2}{\pi}}\leq 1$ is used. 
+For second inequality, Cauchy-Schwarz inequality is employed.
+For third inequality, the fact $E[\xi_{j^{'}}^{2}]\leq 3\log\mathcal{N}_{n}+1$ is used. 
+In the last inequality, we use $1\leq \log\mathcal{N}_{n}$. 
+Here, we provide a simple proof for the fact :
+\begin{equation*}
+    E[\xi_{j^{'}}^{2}]\leq 3\log\mathcal{N}_{n}+1, \quad \xi_{j^{'}}\sim\mathcal{N}(0,1).
+\end{equation*}
+
+\begin{proof}
+    Let $Z=\max_{j=1,\dots,\mathcal{N}_{n}}\xi_{j^{'}}^{2}$. 
+    Since $Z\leq\sum_{j=1}^{\mathcal{N}_{n}}\xi_{j}^{2}$, we have $E[Z]\leq \mathcal{N}_{n}$.   
+    For $\mathcal{N}_{n}\in\{1,2,3\}$, it can be checked that $\mathcal{N}_{n}\leq3\log(\mathcal{N}_{n})+1$ and the result holds in this case. 
+    Now, we consider the case where $\mathcal{N}_{n}\geq4$.
+    Mill's ratio gives $P(|\xi_{1}|\geq\sqrt{t})=2P(\xi_{1}\geq\sqrt{t})\leq\frac{2}{\sqrt{2\pi t}}e^{-t/2}$.
+    For any $T\geq0$ and by using union bound, 
+    \begin{align*}
+        E[Z]
+        &=\int_{0}^{\infty}P(Z\geq t)dt\\
+        &\leq T + \int_{T}^{\infty}P(Z\geq t)dt
+        \leq T + \mathcal{N}_{n}\int_{T}^{\infty}P(\xi_{1}^{2} \geq t)dt\\
+        &\leq T + \mathcal{N}_{n}\int_{T}^{\infty}P(\xi_{1}^{2} \geq t)dt
+        \leq T + \mathcal{N}_{n}\int_{T}^{\infty}\frac{2}{\sqrt{2\pi t}}e^{-t/2}dt\\
+        &\leq T + \frac{2\mathcal{N}_{n}}{\sqrt{2\pi T}} \int_{T}^{\infty}e^{-t/2}dt
+        = T + \frac{4\mathcal{N}_{n}}{\sqrt{2\pi T}}e^{-T/2}.
+    \end{align*}
+    
+    Set $T=2\log(\mathcal{N}_{n})$, we find
+    \begin{equation*}
+        E[Z]\leq 2\log(\mathcal{N}_{n})+\frac{2}{\sqrt{\pi\log(\mathcal{N}_{n})}}.
+    \end{equation*}
+    This yields the claim for $\mathcal{N}_{n}\geq4$.
+\end{proof}
+
+
+Further, because of $\log\mathcal{N}_{n}\leq n$, we have $2n^{-1/2}\delta\sqrt{3\log\mathcal{N}_{n}+1}\leq 4\delta$. By combining the facts, we finally get a following inequality:
+\begin{eqnarray*}
+    \left| E\left[ \frac{2}{n}\sum_{i=1}^{n} \varepsilon_{i}\Tilde{f}(X_{i}) \right] \right| 
+    \leq 2\sqrt{\frac{\widehat{R}_{n}(\Tilde{f},f_{0})\big( 3\log\mathcal{N}_{n}+1 \big)}{n}}+6\delta.
+\end{eqnarray*}
+
+\subsection{Step 4.}
+By the definition of $\Delta_{n}$, for any fixed $f\in\mathcal{F}$, we have $E[\frac{1}{n}\sum_{i=1}^{n}(Y_{i}-\widehat{f}(X_{i}))^{2}]\leq E[\frac{1}{n}\sum_{i=1}^{n}(Y_{i}-f(X_{i}))^{2}]+\Delta_{n}$. We want to get a bound for $\widehat{R}_{n}(\widehat{f},f_{0})$ for any fixed $f\in \mathcal{F}$,
+\begin{align*}
+    \widehat{R}_{n}(\widehat{f},f_{0}) 
+    &= E_{f_{0}}\left[ \frac{1}{n} \sum_{j=1}^{n} \big( \widehat{f}(X_{i}) - f_{0}(X_{i}) \big)^{2} \right] \\ 
+    &= E_{f_{0}}\left[ \frac{1}{n} \sum_{j=1}^{n} \big( \widehat{f}(X_{i}) +\varepsilon_{i} - Y_{i} \big)^{2} \right] \\
+    &= E_{f_{0}}\left[ \frac{1}{n} \sum_{j=1}^{n} \bigg( (Y_{i} - \widehat{f}(X_{i}) )^{2} + 2\varepsilon_{i} ( Y_{i} - \widehat{f}(X_{i})) + \varepsilon_{i}^{2} \bigg) \right] \\
+    &\leq E_{f_{0}}\left[ \frac{1}{n} \sum_{j=1}^{n} \big( Y_{i} - f(X_{i}) \big)^{2} \right] + \Delta_{n} - \frac{2}{n} E_{f_{0}}\left[\sum_{i=1}^{n}\varepsilon_{i} ( Y_{i} - \widehat{f}(X_{i}))\right] + E_{f_{0}}[\varepsilon_{1}^{2}] \\
+    &\leq E_{f_{0}}\left[ \frac{1}{n} \sum_{j=1}^{n} \bigg( f_{0}(X_{i}) - f(X_{i}) + \varepsilon_{i} \bigg)^{2} \right] + \Delta_{n} + \frac{2}{n} E_{f_{0}}\left[\sum_{i=1}^{n}\varepsilon_{i} \bigg( \widehat{f}(X_{i})-f_{0}(X_{i}) \bigg)\right] - E_{f_{0}}[\varepsilon_{1}^{2}] \\
+    &\leq E_{f_{0}}\left[ \frac{1}{n} \sum_{j=1}^{n} \bigg( f_{0}(X_{i}) - f(X_{i}) \bigg)^{2} \right] + \Delta_{n} + \frac{2}{n} E_{f_{0}}\left[\sum_{i=1}^{n}\varepsilon_{i} \widehat{f}(X_{i})\right].
+\end{align*}
+Note that we have used the relation $E[\varepsilon_{i} f(X_{i})]=0$ at second to the last inequality. Finally, combining the upper bound we get on $\frac{2}{n} E_{f_{0}}\left[\sum_{i=1}^{n}\varepsilon_{i} \widehat{f}(X_{i})\right]$ at Step 3., we obtain the upper-bound for $\widehat{R}_{n}(\widehat{f},f_{0})$ as follows:
+\begin{eqnarray*}
+    \widehat{R}_{n}(\widehat{f},f_{0}) \leq E_{f_{0}}[\|f-f_{0}\|_{n}^{2}] + 2\sqrt{\frac{\widehat{R}_{n}(\Tilde{f},f_{0})\big( 3\log\mathcal{N}_{n}+1 \big)}{n}}+6\delta + \Delta_{n}.
+\end{eqnarray*}
+Lastly using the upper bound of \eqref{eq:eq3} and by setting $a=\widehat{R}_{n}(\widehat{f},f_{0})$, $b=0$, $c=\sqrt{\frac{3\log\mathcal{N}_{n}+1}{n}}$, and $d=E_{f_{0}}[\|f-f_{0}\|_{n}^{2}]+6\delta+\Delta$, we get the following upper bound of $\widehat{R}_{n}(\widehat{f},f_{0})$ for any $\varepsilon \in (0,1]$:
+\begin{eqnarray*}
+    \widehat{R}_{n}(\widehat{f},f_{0}) \leq 
+    (1+\varepsilon) \bigg( \inf_{f \in \mathcal{F} }E_{f_{0}}[\|f-f_{0}\|_{n}^{2}] + F^{2}\frac{ 6\log\mathcal{N}_{n}+2 }{n\varepsilon}+6\delta + \Delta_{n} \bigg).
+\end{eqnarray*}
+As for the lower bound of $\widehat{R}_{n}(\widehat{f},f_{0})$, first it is trivial to see that 
+\begin{eqnarray*}
+    \widehat{R}_{n}(\widehat{f},f_{0}) - \widehat{R}_{n}(\Tilde{f},f_{0}) &=& 
+    \Delta_{n} + E_{f_{0}}\left[ \frac{2}{n} \sum_{i=1}^{n} \varepsilon_{i} \widehat{f}(X_{i}) \right] - E_{f_{0}}\left[ \frac{2}{n} \sum_{i=1}^{n} \varepsilon_{i} \Tilde{f}(X_{i}) \right] \\
+    &\geq&  \Delta_{n} - 2\sqrt{\frac{\widehat{R}_{n}(\widehat{f},f_{0})\big( 3\log\mathcal{N}_{n}+1 \big)}{n}} - 2\sqrt{\frac{\widehat{R}_{n}(\Tilde{f},f_{0})\big( 3\log\mathcal{N}_{n}+1 \big)}{n}} -12\delta \\
+    &\geq&  \Delta_{n} - \frac{\varepsilon}{1-\varepsilon}\widehat{R}_{n}(\widehat{f},f_{0}) - \frac{3\log\mathcal{N}_{n}+1}{\varepsilon n} - \widehat{R}_{n}(\Tilde{f},f_{0})-12\delta.
+\end{eqnarray*}
+
+Here in the third inequality, we have used following inequalities, for any $\varepsilon\in(0,1]$,
+\begin{align*}
+    &2\sqrt{\frac{\widehat{R}_{n}(\widehat{f},f_{0})\big( 3\log\mathcal{N}_{n}+1 \big)}{n}}
+    \leq \frac{\varepsilon}{1-\varepsilon}\widehat{R}_{n}(\widehat{f},f_{0}) + \frac{1-\varepsilon}{\varepsilon}\bigg(\frac{3\log\mathcal{N}_{n}+1}{n}\bigg),\\
+    &2\sqrt{\frac{\widehat{R}_{n}(\Tilde{f},f_{0})\big( 3\log\mathcal{N}_{n}+1 \big)}{n}}
+    \leq \widehat{R}_{n}(\Tilde{f},f_{0}) + \frac{3\log\mathcal{N}_{n}+1}{n}.\\
+\end{align*}
+
+Rearranging the term, for any $\varepsilon\in(0,1]$,
+\begin{eqnarray*}
+    \widehat{R}_{n}(\widehat{f},f_{0}) \geq (1-\varepsilon)\bigg( \Delta_{n} -\frac{3\log\mathcal{N}_{n}+1}{n\varepsilon} -12\delta \bigg).
+\end{eqnarray*}
+
+\end{document}
