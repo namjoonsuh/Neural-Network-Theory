@@ -2,6 +2,10 @@
 
 We use this repository to keep track of slides that we are making for a theoretical review on neural network based models. 
 
+## Useful links
+
+* A Princeton course on deep learning theory: https://github.com/leiwu1990/course.math_theory_nn
+
 ## Table of contents
 
 The following is a list of papers that we are working on presentatoin slides. 
