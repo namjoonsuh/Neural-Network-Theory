@@ -45,5 +45,5 @@ _The following papers are possibly in the pipeline._
   
 8. A Theoretical Analysis of Deep Q-Learning; Jan et al. (2020); A theoretical analysis of the deep reinforcement learning.
 
- * *papers*/1901.00137.pdf 
+ * *papers*/1901.00137.pdf [https://arxiv.org/pdf/1901.00137.pdf]
 
