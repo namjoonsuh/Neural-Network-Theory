@@ -52,3 +52,10 @@ _The following papers are possibly in the pipeline._
 
  * *papers*/1901.00137.pdf [https://arxiv.org/pdf/1901.00137.pdf]
 
+9. Understanding Implicit Regularization in Over-Parameterized Nonlinear Statistical Model.
+
+ * *papers*/2007.08322.pdf [https://arxiv.org/abs/2007.08322]
+ 
+10. Gradient Descent Provably Optimizes Over-parameterized Neural Networks
+
+ * *papers*/1901.00137.pdf [https://arxiv.org/abs/1810.02054]
