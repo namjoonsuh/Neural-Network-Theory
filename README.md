@@ -58,4 +58,4 @@ _The following papers are possibly in the pipeline._
  
 10. Gradient Descent Provably Optimizes Over-parameterized Neural Networks
 
- * *papers*/1901.00137.pdf [https://arxiv.org/abs/1810.02054]
+ * *papers*/1810.02054.pdf [https://arxiv.org/abs/1810.02054]
