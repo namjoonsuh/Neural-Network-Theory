@@ -59,3 +59,7 @@ _The following papers are possibly in the pipeline._
 10. Gradient Descent Provably Optimizes Over-parameterized Neural Networks
 
  * *papers*/1810.02054.pdf [https://arxiv.org/abs/1810.02054]
+ 
+11. ROOT-SGD: Sharp Nonasymptotics and Asymptotic Efficiency in a Single Algorithm
+
+ * *papers*/ [http://www.optimization-online.org/DB_FILE/2020/08/7979.pdf]
