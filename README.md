@@ -66,12 +66,12 @@ _The following papers are possibly in the pipeline._
 
 12. {Euclidean, Metric, Wasserstein} Gradient Flows: an overview
  
-  * *papers*/ surveyGradFlows.pdf
+  * *papers*/ [surveyGradFlows.pdf](papers/surveyGradFlows.pdf)
 
 13. Mean-Field Analysis of Two-Layer Neural Networks: Non-Asymptotic Rates and Generalization Bounds
 
-  * *papers*/ 2002.04026.pdf
+  * *papers*/ [2002.04026.pdf](papers/2002.04026.pdf)
 
 14. How Much Over-parametrization is Sufficient to Learn Deep ReLU Networks
 
-  * *papers*/ 1911.12360.pdf
+  * *papers*/ [1911.12360.pdf](papers/1911.12360.pdf)
