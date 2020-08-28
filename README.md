@@ -52,26 +52,26 @@ _The following papers are possibly in the pipeline._
 
  * *papers*/1901.00137.pdf [https://arxiv.org/pdf/1901.00137.pdf]
 
-9. Understanding Implicit Regularization in Over-Parameterized Nonlinear Statistical Model.
+9. Understanding Implicit Regularization in Over-Parameterized Nonlinear Statistical Model. Jianqing Fan, Zhuoran Yang, Mengxin Yu (2020)
 
  * *papers*/2007.08322.pdf [https://arxiv.org/abs/2007.08322]
  
-10. Gradient Descent Provably Optimizes Over-parameterized Neural Networks
+10. Gradient Descent Provably Optimizes Over-parameterized Neural Networks, Simon S. Du, Xiyu Zhai, Barnabas Poczos, Aarti Singh (2018)
 
  * *papers*/1810.02054.pdf [https://arxiv.org/abs/1810.02054]
  
-11. ROOT-SGD: Sharp Nonasymptotics and Asymptotic Efficiency in a Single Algorithm
+11. ROOT-SGD: Sharp Nonasymptotics and Asymptotic Efficiency in a Single Algorithm, Chris Junchi Li, Wenlong Mou, Martin J. Wainwright, Michael I. Jordan (2020)
 
  * *papers*/ [http://www.optimization-online.org/DB_FILE/2020/08/7979.pdf]
 
-12. {Euclidean, Metric, Wasserstein} Gradient Flows: an overview
+12. {Euclidean, Metric, Wasserstein} Gradient Flows: an overview, Filippo Santambrogio
  
   * *papers*/ [surveyGradFlows.pdf](papers/surveyGradFlows.pdf)
 
-13. Mean-Field Analysis of Two-Layer Neural Networks: Non-Asymptotic Rates and Generalization Bounds
+13. Mean-Field Analysis of Two-Layer Neural Networks: Non-Asymptotic Rates and Generalization Bounds, Zixiang Chen, Yuan Cao, Quanquan Gu, Tong Zhang (2020)
 
   * *papers*/ [2002.04026.pdf](papers/2002.04026.pdf)
 
-14. How Much Over-parametrization is Sufficient to Learn Deep ReLU Networks
+14. How Much Over-parametrization is Sufficient to Learn Deep ReLU Networks, Zixiang Chen, Yuan Cao, Difan Zou, Quanquan Gu (2020)
 
   * *papers*/ [1911.12360.pdf](papers/1911.12360.pdf)
