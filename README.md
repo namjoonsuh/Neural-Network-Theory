@@ -75,3 +75,8 @@ _The following papers are possibly in the pipeline._
 14. How Much Over-parametrization is Sufficient to Learn Deep ReLU Networks, Zixiang Chen, Yuan Cao, Difan Zou, Quanquan Gu (2020)
 
   * *papers*/ [1911.12360.pdf](papers/1911.12360.pdf)
+
+15. Convergence Theory of Learning Over-parameterized ResNet: A Full Characterization
+ (2019)
+ 
+  * *papers*/ [1903.07120.pdf](papers/1903.07120.pdf)
