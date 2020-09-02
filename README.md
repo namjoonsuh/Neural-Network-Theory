@@ -76,7 +76,15 @@ _The following papers are possibly in the pipeline._
 
   * *papers*/ [1911.12360.pdf](papers/1911.12360.pdf)
 
-15. Convergence Theory of Learning Over-parameterized ResNet: A Full Characterization
- (2019)
+15. Convergence Theory of Learning Over-parameterized ResNet: A Full Characterization, Huishuai Zhang, Da Yu, Mingyang Yi, Wei Cheny, Tie-Yan Liu (2019)
  
   * *papers*/ [1903.07120.pdf](papers/1903.07120.pdf)
+
+16. Implicit Regularization via Hadamard Product Over-Parametrization in High-Dimensional Linear
+Regression, Peng Zhao, Yun Yang, and Qiao-Chu He (2019)
+
+  * *papers*/ [1903.09367.pdf](papers/1903.09367.pdf)
+
+17. Implicit Regularization for Optimal Sparse Recovery, Tomas Vaškevicius, Varun Kanade, Patrick Rebeschini (2019)
+
+  * *papers*/ [1909.05122.pdf](papers/1909.05122.pdf)
