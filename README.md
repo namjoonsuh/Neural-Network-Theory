@@ -62,7 +62,7 @@ _The following papers are possibly in the pipeline._
  
 11. ROOT-SGD: Sharp Nonasymptotics and Asymptotic Efficiency in a Single Algorithm, Chris Junchi Li, Wenlong Mou, Martin J. Wainwright, Michael I. Jordan (2020)
 
- * *papers*/ [http://www.optimization-online.org/DB_FILE/2020/08/7979.pdf]
+ * *papers*/ [http://www.optimization-online.org/DB_FILE/2020/08/7979.pdf]; also at [https://arxiv.org/pdf/2008.12690.pdf]
 
 12. {Euclidean, Metric, Wasserstein} Gradient Flows: an overview, Filippo Santambrogio
  
