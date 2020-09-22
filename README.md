@@ -88,3 +88,7 @@ Regression, Peng Zhao, Yun Yang, and Qiao-Chu He (2019)
 17. Implicit Regularization for Optimal Sparse Recovery, Tomas Vaškevicius, Varun Kanade, Patrick Rebeschini (2019)
 
   * *papers*/ [1909.05122.pdf](papers/1909.05122.pdf)
+
+18. Neural Tangent Kernel: Convergence and Generalization in Neural Networks, Arthur Jacot, Franck Gabriel, Clement Hongler (2018)
+
+  * *papers*/ [1806.07572.pdf](papers/1806.07572.pdf)
