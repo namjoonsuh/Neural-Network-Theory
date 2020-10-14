@@ -92,3 +92,12 @@ Regression, Peng Zhao, Yun Yang, and Qiao-Chu He (2019)
 18. Neural Tangent Kernel: Convergence and Generalization in Neural Networks, Arthur Jacot, Franck Gabriel, Clement Hongler (2018)
 
   * *papers*/ [1806.07572.pdf](papers/1806.07572.pdf)
+
+19. Kernel Alignment Risk Estimator: Risk Prediction from Training Data, Jacot et. al. (2020)
+
+  * *papers*/ [2006.09796.pdf](papers/2006.09796.pdf)
+
+20. On Exact Computation with an Infinitely Wide Neural Net, Arora et. al. (2019)
+
+  * *papers*/ [1904.11955.pdf](papers/1904.11955.pdf)
+
