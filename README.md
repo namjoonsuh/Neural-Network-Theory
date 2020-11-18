@@ -100,4 +100,7 @@ Regression, Peng Zhao, Yun Yang, and Qiao-Chu He (2019)
 20. On Exact Computation with an Infinitely Wide Neural Net, Arora et. al. (2019)
 
   * *papers*/ [1904.11955.pdf](papers/1904.11955.pdf)
+  
+21. Fine-Grained Analysis of Optimization and Generalization for Overparameterized Two-Layer Neural Networks, Arora et. al. (2019)
 
+  * *papers*/ https://arxiv.org/abs/1901.08584
