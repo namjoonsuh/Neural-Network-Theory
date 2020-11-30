@@ -112,7 +112,7 @@ Regression, Peng Zhao, Yun Yang, and Qiao-Chu He (2019)
 "We analyze the convergence of the averaged stochastic gradient descent for over-parameterized two-layer neural networks for regression problems. It was recently found that, under the neural tangent..."
 
 
-21. Why ResNet Works? Residuals Generalize, He et. al. (2020)
+23. Why ResNet Works? Residuals Generalize, He et. al. (2020)
 
   * *papers*/ [08984747.pdf](papers/08984747.pdf)
 
