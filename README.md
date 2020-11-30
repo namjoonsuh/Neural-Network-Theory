@@ -101,3 +101,9 @@ Regression, Peng Zhao, Yun Yang, and Qiao-Chu He (2019)
 
   * *papers*/ [1904.11955.pdf](papers/1904.11955.pdf)
 
+21. Why ResNet Works? Residuals Generalize, He et. al. (2020)
+
+  * *papers*/ [08984747.pdf](papers/08984747.pdf)
+
+
+
