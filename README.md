@@ -100,6 +100,17 @@ Regression, Peng Zhao, Yun Yang, and Qiao-Chu He (2019)
 20. On Exact Computation with an Infinitely Wide Neural Net, Arora et. al. (2019)
 
   * *papers*/ [1904.11955.pdf](papers/1904.11955.pdf)
+  
+21. Fine-Grained Analysis of Optimization and Generalization for Overparameterized Two-Layer Neural Networks, Arora et. al. (2019)
+
+  * *papers*/ https://arxiv.org/abs/1901.08584
+
+22. Optimal Rates for Averaged Stochastic Gradient Descent under Neural Tangent Kernel Regime (2020). Atsushi Nitanda, Taiji Suzuki
+
+* *papers*/ https://arxiv.org/abs/2006.12297
+
+"We analyze the convergence of the averaged stochastic gradient descent for over-parameterized two-layer neural networks for regression problems. It was recently found that, under the neural tangent..."
+
 
 21. Why ResNet Works? Residuals Generalize, He et. al. (2020)
 
