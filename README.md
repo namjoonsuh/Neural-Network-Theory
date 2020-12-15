@@ -7,6 +7,13 @@ We use this repository to keep track of slides that we are making for a theoreti
 * A Princeton course on deep learning theory: https://github.com/leiwu1990/course.math_theory_nn
 * Slides for a summer school on Deep Learning at SJTU 2020: folder "*dl summer school 2020*"
 
+
+## Meeting Notes
+
+This folder contains notes we made and presented during lab meetings. Below are their brief descriptions:
+
+1. Nov30.2020_1, Nov30.2020_1 : We discussed the high level ideas of three papers (Hieber, Chen et al, Arora et al) and made comparisons.
+
 ## Table of contents
 
 The following is a list of papers that we are working on presentatoin slides. 
