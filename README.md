@@ -128,6 +128,7 @@ Regression, Peng Zhao, Yun Yang, and Qiao-Chu He (2019)
 
   * *papers*/ [08984747.pdf](papers/08984747.pdf)
 
-25. 
 
+25. Deep Neural Tangent Kernel and Laplace Kernel Have the Same RKHS
 
+  * *papers*/ [08984747.pdf](papers/08984747.pdf)
