@@ -124,4 +124,10 @@ Regression, Peng Zhao, Yun Yang, and Qiao-Chu He (2019)
   * *papers*/ [08984747.pdf](papers/08984747.pdf)
 
 
+24. On the Similarity between the Laplace and Neural Tangent Kernels, Amnon Geifman, Abhay Yadav, Yoni Kasten, Meirav Galun, David Jacobs, Ronen Basri. (2020)
+
+  * *papers*/ [08984747.pdf](papers/08984747.pdf)
+
+25. 
+
 
