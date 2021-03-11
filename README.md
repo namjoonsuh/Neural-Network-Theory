@@ -132,3 +132,9 @@ Regression, Peng Zhao, Yun Yang, and Qiao-Chu He (2019)
 25. Deep Neural Tangent Kernel and Laplace Kernel Have the Same RKHS
 
   * *papers*/ [08984747.pdf](papers/08984747.pdf)
+
+26. A Convergence Theory for Deep Learning via Over-Parameterization
+
+  * *papers*/ [1811.03962.pdf](papers/1811.03962.pdf)
+
+ 
