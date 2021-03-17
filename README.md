@@ -6,7 +6,7 @@ We use this repository to keep track of slides that we are making for a theoreti
 
 * A Princeton course on deep learning theory: https://github.com/leiwu1990/course.math_theory_nn
 * Slides for a summer school on Deep Learning at SJTU 2020: folder "*dl summer school 2020*"
-
+* Telgarsky's Note on deep learning theory: https://mjt.cs.illinois.edu/dlt/#vc-dimension-of-linear-predictors 
 
 ## Meeting Notes
 
