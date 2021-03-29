@@ -133,10 +133,16 @@ Regression, Peng Zhao, Yun Yang, and Qiao-Chu He (2019)
 
   * *papers*/ [08984747.pdf](papers/08984747.pdf)
 
-26. A Convergence Theory for Deep Learning via Over-Parameterization
+26. A Convergence Theory for Deep Learning via Over-Parameterization -- by Allen-zhu, Li, Song (June 2019)
 
   * *papers*/ [1811.03962.pdf](papers/1811.03962.pdf)
 
  27. Deep learning: a statistical viewpoint -- by Bartlett, Montanari, and Rakhlin (March 2021)
 
   * *papers*/ [2103.09177.pdf](papers/2103.09177.pdf)
+
+28. Regularization matters: A nonparametric perspective on overparametrized neural network. Wenjia Wang, Tianyang Hu, Cong Lin, and Guang Cheng. (July 2020) 
+
+  * *papers*/ [2007.02486.pdf](papers/2007.02486.pdf)
+
+
