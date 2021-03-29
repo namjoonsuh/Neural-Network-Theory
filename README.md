@@ -137,4 +137,6 @@ Regression, Peng Zhao, Yun Yang, and Qiao-Chu He (2019)
 
   * *papers*/ [1811.03962.pdf](papers/1811.03962.pdf)
 
- 
+ 27. Deep learning: a statistical viewpoint -- by Bartlett, Montanari, and Rakhlin (March 2021)
+
+  * *papers*/ [2103.09177.pdf](papers/2103.09177.pdf)
