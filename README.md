@@ -145,4 +145,6 @@ Regression, Peng Zhao, Yun Yang, and Qiao-Chu He (2019)
 
   * *papers*/ [2007.02486.pdf](papers/2007.02486.pdf)
 
+29. a course project description by Andrea Montanari at Stanford. It's a good resources to find relevant references.
 
+  * *papers*/ [Andrea_Course_proj2021.pdf](papers/Andrea_Course_proj2021.pdf)
